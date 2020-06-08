@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 
 const ToDoRoutes = require('./api/routes/todo');
 
-mongoose.connect('mongodb+srv://User:Password@todos-edhow.mongodb.net/TODOs?retryWrites=true&w=majority', {useNewUrlParser: true});
+mongoose.connect(
+  'mongodb+srv://User:Password@todos-edhow.mongodb.net/TODOs?retryWrites=true&w=majority',
+  { useNewUrlParser: true }
+);
 mongoose.Promise = global.Promise;
 //MiddleWare
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,6 +29,9 @@ app.use((req, res, next) => {
 });
 
 //Routes
+app.use('/', (req, res, next) => {
+  res.json({ message: 'go to /todos to see the entries' });
+});
 app.use('/todos', ToDoRoutes);
 
 app.use((req, res, next) => {
